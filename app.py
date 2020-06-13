@@ -96,6 +96,55 @@ def handle_message(event):
     # 傳送電影 
     elif event.message.text == '傳送電影':
         message = TextSendMessage(movie()) 
+    # 傳送按鈕介面訊息
+    elif event.message.text == '快速選單':
+        message = TemplateSendMessage(
+            alt_text='Buttons template',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://i.imgur.com/vkqbLnz.png',
+                title='Menu',
+                text='Please select',
+                actions=[
+                    MessageTemplateAction(
+                        label='發生地點',
+                        text='傳送位置'
+                    ),
+                    MessageTemplateAction(
+                        label='看新聞',
+                        text='傳送文字'
+                    ),
+                    URITemplateAction(
+                        label='URL',
+                        uri='https://tw.appledaily.com/local/realtime/20180817/1412804'
+                    )
+                ]
+            )
+        )
+    # 傳送多重圖片訊息
+    elif event.message.text == '多項傳送':
+        message = TemplateSendMessage(
+            alt_text='ImageCarousel template',
+            template=ImageCarouselTemplate(
+                columns=[
+                    ImageCarouselColumn(
+                        image_url='https://i.imgur.com/N3oQXjW.png',
+                        action=PostbackTemplateAction(
+                            label='postback1',
+                            text='postback text1',
+                            data='action=buy&itemid=1'
+                        )
+                    ),
+                    ImageCarouselColumn(
+                        image_url='https://i.imgur.com/OBdCHB9.png',
+                        action=PostbackTemplateAction(
+                            label='postback2',
+                            text='postback text2',
+                            data='action=buy&itemid=2'
+                        )
+                    )
+                ]
+            )
+        )
     else:
         message = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
