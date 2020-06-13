@@ -62,7 +62,7 @@ def handle_message(event):
     # 傳送新聞
     if event.message.text == '傳送新聞':
         message = TextSendMessage(getNews())
-		# 傳送圖片
+	# 傳送圖片
     elif event.message.text == '傳送圖片':
         message = ImageSendMessage(
             original_content_url='https://i.imgur.com/QPJ8A1b.png',
